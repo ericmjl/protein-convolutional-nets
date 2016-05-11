@@ -1,0 +1,5 @@
+# Excludes files from rsync operation
+data/**.pkl
+experiments/**.pdf
+**.sh.*
+**.DS_Store

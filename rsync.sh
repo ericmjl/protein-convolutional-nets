@@ -1,0 +1,1 @@
+rsync -avzP --update * ericmjl@rous:~/Documents/github/protein-convolutional-nets --exclude-from exclude.txt 
