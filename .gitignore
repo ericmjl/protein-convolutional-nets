@@ -1,4 +1,6 @@
 # Data files
+
+experiments/profile/*.profile
 data/**
 !data/batch_summary.json
 #experiments/**

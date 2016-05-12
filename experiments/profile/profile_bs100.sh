@@ -7,4 +7,4 @@
 #$ -pe whole_nodes 1
 #############################################
 
-python -m cProfile -s time -o bs1.profile train.py 10 1
+python -m cProfile -s time -o bs100.profile train.py 10 100
