@@ -112,7 +112,7 @@ def read_data():
     return all_graphs, drug_data
 
 
-def train_loss(wb_vect, unflattener, cv=False, batch=True, batch_size=10,
+def train_loss(wb_vect, unflattener, cv=False, batch=True, batch_size=100,
                debug=False):
     """
     Training loss is MSE.
@@ -129,7 +129,7 @@ def train_loss(wb_vect, unflattener, cv=False, batch=True, batch_size=10,
     if cv and not batch:
         samp_graphs, samp_inputs = batch_sample(test_graphs,
                                                 input_shape,
-                                                batch_size=10)
+                                                batch_size=100)
     else:
         samp_graphs, samp_inputs = batch_sample(graphs,
                                                 input_shape,
@@ -190,7 +190,7 @@ def callback(wb, i):
 
     # Record training set train_loss
     tl = train_loss(wb_vect, wb_unflattener, batch=True, cv=False,
-                    batch_size=10)
+                    batch_size=100)
     print(tl)
     trainloss.append(tl)
 
