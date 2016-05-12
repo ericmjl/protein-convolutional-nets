@@ -10,11 +10,9 @@ experiments/**/*.sh.*
 #data/batch_models/**/*.lzma
 #data/batch_models/**/*.sh.*
 utils/*.sh.*
-**/figures/**
-
+notebooks/figures/*
 notebooks/test*
 **.DS_Store
-!notebooks/figures/*
 **.pdf
 
 # Byte-compiled / optimized / DLL files
