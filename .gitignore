@@ -1,10 +1,10 @@
 # Data files
 data/**
 !data/batch_summary.json
-experiments/**
-#experiments/**/*.pkl
-#experiments/**/**/*.pkl
-#experiments/**/*.sh.*
+#experiments/**
+experiments/**/*.pkl
+experiments/**/**/*.pkl
+experiments/**/*.sh.*
 #data/batch_models.zip
 #data/batch_models/**/*.pkl
 #data/batch_models/**/*.lzma
