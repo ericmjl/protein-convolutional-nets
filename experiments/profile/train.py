@@ -92,6 +92,7 @@ def train_loss(wb_vect, unflattener, cv=False, batch=True, batch_size=10,
                                                 input_shape,
                                                 batch_size=batch_size)
 
+    print('batch size: {0}'.format(len(samp_graphs)))
     preds = predict(wb_struct, samp_inputs, samp_graphs)
     graph_ids = [g.graph['seqid'] for g in samp_graphs]
     graph_scores = drug_data.set_index('seqid').ix[graph_ids]['FPV'].values.\
