@@ -7,4 +7,4 @@
 #$ -pe whole_nodes 1
 #############################################
 
-python -m cProfile train.py 10
+python -m cProfile train.py 10 1
