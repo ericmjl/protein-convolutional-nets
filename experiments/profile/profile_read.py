@@ -7,4 +7,4 @@ if __name__ == '__main__':
 
     p = pstats.Stats(profile_name)
     p.sort_stats('tottime')
-    p.print_stats('layers.py', 20)
+    p.print_stats(20)
