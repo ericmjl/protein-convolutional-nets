@@ -23,27 +23,6 @@ import sys
 # import multiprocessing
 
 
-def read_graphs(cpu, list_of_projects):
-    graphs = []
-    print(cpu, len(list_of_projects))
-    for i, (seqid, project) in enumerate(list_of_projects):
-        print(i, seqid, project)
-        try:
-            with open('../../data/batch_models/{0}/model_01.pkl'.format(
-                    project), 'rb') as f:
-                p = pkl.load(f)
-                p.graph['input_shape'] = p.nodes(data=True)[0][1][
-                    'features'].shape
-                p.graph['project'] = project
-                p.graph['seqid'] = seqid
-                graphs.append(p)
-
-        except:
-            print('did not add graph for {0}'.format(project))
-            pass
-    return graphs
-
-
 def read_data():
     """
     Reads all of the protein graphs into memory from disk.
@@ -64,31 +43,9 @@ def read_data():
     drug_data['FPV'] = drug_data['FPV'].apply(np.log10)
 
     proj_titles = {c['title']: c['code'] for c in model_data['projects']}
-    # Divide the proj_titles into n_cpu jobs.
-
-    # print('Dividing project titles across CPUs...')
-    # n_cpus = multiprocessing.cpu_count()
-    # cpu_jobs = defaultdict(list)
-    # for i, (seqid, project) in enumerate(proj_titles.items()):
-    #     cpu_idx = i % n_cpus
-    #     print('assigning task {0} into cpu {1}'.format(seqid, cpu_idx))
-    #     cpu_jobs[cpu_idx].append((seqid, project))
-
-    # print('Parallelizing jobs...')
-    # results = Parallel(n_jobs=-1)(delayed(read_graphs)(cpu, list_of_projects)
-    #                               for cpu, list_of_projects in cpu_jobs.items()
-    #                               )
-    # print('Collating results into a single list...')
-    # all_graphs = []
-    # for result in results:
-    #     all_graphs.extend(result)
-    # print('There are a total of {0} graphs'.format(len(all_graphs)))
-
-    # # Finally, clean up any None
-    # all_graphs = [p for p in all_graphs if p is not None]
 
     all_graphs = []
-    n_graphs = len(drug_data)
+    n_graphs = 200
     for i, (seqid, project) in tqdm(enumerate(proj_titles.items())):
         if len(all_graphs) < n_graphs and\
                 seqid in drug_data['seqid'].values:
@@ -112,7 +69,7 @@ def read_data():
     return all_graphs, drug_data
 
 
-def train_loss(wb_vect, unflattener, cv=False, batch=True, batch_size=100,
+def train_loss(wb_vect, unflattener, cv=False, batch=True, batch_size=1,
                debug=False):
     """
     Training loss is MSE.
@@ -129,7 +86,7 @@ def train_loss(wb_vect, unflattener, cv=False, batch=True, batch_size=100,
     if cv and not batch:
         samp_graphs, samp_inputs = batch_sample(test_graphs,
                                                 input_shape,
-                                                batch_size=100)
+                                                batch_size=1)
     else:
         samp_graphs, samp_inputs = batch_sample(graphs,
                                                 input_shape,
@@ -190,12 +147,12 @@ def callback(wb, i):
 
     # Record training set train_loss
     tl = train_loss(wb_vect, wb_unflattener, batch=True, cv=False,
-                    batch_size=100)
+                    batch_size=1)
     print(tl)
     trainloss.append(tl)
 
     # Record the preds vs. actual for the training set.
-    batch_size = 10
+    batch_size = 1
     samp_graphs, samp_inputs = batch_sample(graphs, input_shape,
                                             batch_size)
 
