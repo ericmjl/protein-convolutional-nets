@@ -69,7 +69,7 @@ def read_data():
     return all_graphs, drug_data
 
 
-def train_loss(wb_vect, unflattener, cv=False, batch=True, batch_size=batch_size,
+def train_loss(wb_vect, unflattener, cv=False, batch=True, batch_size=10,
                debug=False):
     """
     Training loss is MSE.
@@ -83,7 +83,7 @@ def train_loss(wb_vect, unflattener, cv=False, batch=True, batch_size=batch_size
     else:
         batch_size = len(graphs)
 
-    if cv and not batch:
+    if cv:
         samp_graphs, samp_inputs = batch_sample(test_graphs,
                                                 input_shape,
                                                 batch_size=batch_size)
@@ -96,7 +96,7 @@ def train_loss(wb_vect, unflattener, cv=False, batch=True, batch_size=batch_size
     graph_ids = [g.graph['seqid'] for g in samp_graphs]
     graph_scores = drug_data.set_index('seqid').ix[graph_ids]['FPV'].values.\
         reshape(preds.shape)
-    # print(graph_scores)
+
     assert preds.shape == graph_scores.shape
 
     mse = np.mean(np.power(preds - graph_scores, 2))
