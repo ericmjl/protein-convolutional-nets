@@ -10,6 +10,7 @@ experiments/**
 #data/batch_models/**/*.lzma
 #data/batch_models/**/*.sh.*
 utils/*.sh.*
+**/figures/**
 
 notebooks/test*
 **.DS_Store
