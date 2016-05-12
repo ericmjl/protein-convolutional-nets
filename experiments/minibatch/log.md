@@ -17,7 +17,7 @@ Things I want to do on the next experiment:
 
 -----
 
-11 May 2016
+**11 May 2016**
 
 5:26 PM
 
@@ -30,6 +30,8 @@ Previous test on whole dataset needed ~'000s of steps over 5 days to finish opti
 
 ------
 
-12 May 2016
+**12 May 2016**
 
 Batch size of 1 doesn't work well for optimization. Let me see if doing optimization in batches of 10, over 1000 steps, works better.
+
+Doesn't. Let's see if batches of 100, over 1000 steps, works better.
