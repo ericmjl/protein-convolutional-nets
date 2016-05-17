@@ -59,7 +59,7 @@ for project in tqdm(batch_summary['projects']):
             nodes_nbrs[d['idx']].append(d['idx'])
             for nbr in p.neighbors(n):
                 nodes_nbrs[d['idx']].append(p.node[nbr]['idx'])
-            print(nodes_nbrs[d['idx']])
+            # print(nodes_nbrs[d['idx']])
     except:
         print('Did not make graph for {0}'.format(project['code']))
 
