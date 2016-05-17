@@ -7,7 +7,8 @@ from graphfp.layers import FingerprintLayer, LinearRegressionLayer,\
     GraphConvLayer
 from graphfp.utils import initialize_network, batch_sample, train_test_split
 from graphfp.optimizers import adam
-from graphfp.flatten import flatten
+# from graphfp.flatten import flatten
+from pyflatten import flatten
 from time import time
 from autograd import grad
 # from joblib import Parallel, delayed
@@ -88,7 +89,8 @@ def read_data():
     # all_graphs = [p for p in all_graphs if p is not None]
 
     all_graphs = []
-    n_graphs = len(drug_data)
+    # n_graphs = len(drug_data)
+    n_graphs = 200
     for i, (seqid, project) in tqdm(enumerate(proj_titles.items())):
         if len(all_graphs) < n_graphs and\
                 seqid in drug_data['seqid'].values:
