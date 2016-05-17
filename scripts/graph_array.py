@@ -24,6 +24,7 @@ import pickle as pkl
 
 from collections import defaultdict
 from pin import pin
+from tqdm import tqdm
 
 # Open the batch_models.json file.
 with open('../data/batch_summary.json', 'r') as f:
@@ -37,10 +38,10 @@ feat_list = list()
 idx = 0
 graph_idxs = defaultdict(list)
 nodes_nbrs = defaultdict(list)
-for project in batch_summary['projects']:
+for project in tqdm(batch_summary['projects']):
     try:
-        print(project['code'], idx)
-        print(sys.getsizeof(feat_list))
+        # print(project['code'], idx)
+        # print(sys.getsizeof(feat_list))
         proj_dir = op.join(models_path, project['code'])
         pdb_path = op.join(proj_dir, 'model_01.pdb')
 
