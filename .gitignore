@@ -1,6 +1,7 @@
 # Data files
 scripts/*.npy
 scripts/*.pkl
+scripts/*.sh.*
 experiments/profile/*.profile
 data/**
 !data/batch_summary.json
