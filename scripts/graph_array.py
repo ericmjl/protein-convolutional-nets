@@ -38,6 +38,7 @@ feat_list = list()
 idx = 0
 graph_idxs = defaultdict(list)
 nodes_nbrs = defaultdict(list)
+graph_nodes = defaultdict(dict)
 for project in tqdm(batch_summary['projects']):
     try:
         # print(project['code'], idx)
@@ -55,20 +56,28 @@ for project in tqdm(batch_summary['projects']):
 
         # Now loop over each node again and figure out its neighbors.
         for n, d in p.nodes(data=True):
-            graph_idxs[project['code']].append(d['idx'])
+            graph_idxs[project['title']].append(d['idx'])
             nodes_nbrs[d['idx']].append(d['idx'])
+            graph_nodes[project['title']][d['idx']] = n
             for nbr in p.neighbors(n):
                 nodes_nbrs[d['idx']].append(p.node[nbr]['idx'])
             # print(nodes_nbrs[d['idx']])
     except:
         print('Did not make graph for {0}'.format(project['code']))
 
-# Save the array along with the graph_idxs and nodes_nbrs dict to disk.
+# Save the data to disk:
+# The array...
 feat_array = np.vstack(feat_list)
 np.save('../data/feat_array.npy', feat_array)
 
+# The node idxs and their neighbor idxs...
 with open('../data/nodes_nbrs.pkl', 'wb') as f:
     pkl.dump(nodes_nbrs, f)
 
+# The graphs' seqids and their node idxs...
 with open('../data/graph_idxs.pkl', 'wb') as f:
     pkl.dump(graph_idxs, f)
+
+# The graphs': {'SeqID1':{1:'A51SER',...},...}
+with open('../data/graph_nodes.pkl', 'wb') as f:
+    pkl.dump(graph_nodes, f)
