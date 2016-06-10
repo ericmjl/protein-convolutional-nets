@@ -23,6 +23,10 @@ def sparse_binary_transpose(rows, cols):
 
 
 def binary_matrix_to_sparse_rows(matrix):
+    """
+    Converts a binary sparse matrix into rows and columns. Automatically casts
+    as int32, as there is no need for storing them as anything more complex.
+    """
     n_rows, n_cols = matrix.shape
 
     rows = []
@@ -33,7 +37,7 @@ def binary_matrix_to_sparse_rows(matrix):
             if matrix[row, col] == 1:
                 rows.append(row)
                 cols.append(col)
-    return np.array(rows), np.array(cols)
+    return np.array(rows).astype('int32'), np.array(cols).astype('int32')
 
 
 def sparse_rows_to_binary_matrix(rows, cols, shape):
