@@ -4,7 +4,7 @@ from cython import boundscheck, nonecheck, wraparound
 from autograd.core import primitive
 
 
-def csr_binary_dot_left(rows, cols, inputs):
+def csr_binary_dot_left(inputs, rows, cols):
     """
     The binary matrix is on the left of the dot product.
     """
@@ -28,7 +28,7 @@ cdef inline void _csr_binary_dot_left(int[::1] rows,
             out[i, j] += inputs[k, j]
 
 
-def csr_binary_dot_right(rows, cols, inputs):
+def csr_binary_dot_right(inputs, rows, cols):
     """
     The binary matrix is on the right of the dot product.
     """
