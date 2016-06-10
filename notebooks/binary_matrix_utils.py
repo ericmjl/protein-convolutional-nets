@@ -19,7 +19,7 @@ def sparse_binary_transpose(rows, cols):
     """
     new_cols = rows[rows.argsort()]
     new_rows = cols[rows.argsort()]
-    return new_rows, new_cols
+    return new_rows.astype('int32'), new_cols.astype('int32')
 
 
 def binary_matrix_to_sparse_rows(matrix):
@@ -44,4 +44,4 @@ def sparse_rows_to_binary_matrix(rows, cols, shape):
     binmat = np.zeros(shape=shape)
     for row, col in zip(rows, cols):
         binmat[row, col] = 1
-    return binmat
+    return binmat.astype('int32')
